@@ -7,12 +7,26 @@ export class TelegramNotifier {
 
   constructor() {
     this.bot = new Telegraf(config.telegram.botToken);
+
+    this.bot.command("start", ctx => {
+      const message = `👋 Welcome to ENS PG Bot!
+
+🔔 I notify the community about:
+• New grant applications
+
+✨ Features:
+• Real-time notifications
+• Detailed grant information`;
+
+      ctx.reply(message);
+    });
+
     this.bot.launch().catch(console.error);
   }
 
   async notifyNewGrant(grant: Grant) {
     const message = `🎉 New Grant Application!
-
+      
 Title: ${grant.title}
 Requested: ${Number(grant.requestedFunds) / 1e18} ETH
 Builder: ${grant.builderAddress}
