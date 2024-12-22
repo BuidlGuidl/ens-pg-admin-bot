@@ -1,6 +1,6 @@
 import { Telegraf } from "telegraf";
 import { config } from "../config";
-import { Grant, Stage } from "../types/webhook";
+import { Grant, Stage, WebhookData } from "../types/webhook";
 
 export class TelegramNotifier {
   private bot: Telegraf;
@@ -28,29 +28,29 @@ export class TelegramNotifier {
     const message = `🎉 New Grant Application!
       
 Title: ${grant.title}
-Requested: ${Number(grant.requestedFunds) / 1e18} ETH
+Requested: ${Number(grant.requestedFunds)} ETH
 Builder: ${grant.builderAddress}
 
 Description:
 ${grant.description}
 
 Github: ${grant.github}
-${grant.twitter ? `Twitter: ${grant.twitter}` : ""}`;
+${grant.twitter ? `Twitter: ${grant.twitter}` : ""}
+${grant.telegram ? `Telegam: @${grant.telegram}` : ""}`;
 
     await this.bot.telegram.sendMessage(config.telegram.channelId, message, {
       parse_mode: "HTML",
     });
   }
 
-  async notifyNewStage(stage: Stage) {
+  async notifyNewStage(stage: WebhookData) {
     const message = `📝 New Stage Submitted!
       
 Grant: ${stage.grant.title}
-Stage Number: ${stage.stageNumber}
-Status: ${stage.status}
+Stage Number: ${stage.grant.stages.length}
 
 Milestone:
-${stage.milestone || "No milestone description provided"}
+${stage.newStage.milestone || "No milestone description provided"}
 
 Builder: ${stage.grant.builderAddress}`;
 

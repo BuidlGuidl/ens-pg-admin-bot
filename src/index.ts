@@ -5,7 +5,7 @@ import express from "express";
 import { TelegramNotifier } from "./lib/telegram";
 import { validateWebhookSecret } from "./middleware/auth";
 import { config } from "./config";
-import { grantSchema, stageSchema } from "./types/webhook";
+import { grantSchema, webhookSchema } from "./types/webhook";
 
 const app = express();
 app.use(express.json());
@@ -27,7 +27,7 @@ app.post("/webhook/grant", validateWebhookSecret, async (req, res) => {
 // Webhook endpoint for new stages
 app.post("/webhook/stage", validateWebhookSecret, async (req, res) => {
   try {
-    const stageData = stageSchema.parse(req.body);
+    const stageData = webhookSchema.parse(req.body);
     await telegramNotifier.notifyNewStage(stageData);
     res.json({ success: true });
   } catch (error) {
