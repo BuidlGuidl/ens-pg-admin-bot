@@ -18,14 +18,7 @@ A Telegram bot that sends notifications when new grants are created or new stage
 yarn install
 ```
 
-3. Build and run:
-
-```bash
-yarn build
-yarn start
-```
-
-For development:
+3. start dev server:
 
 ```bash
 yarn dev
