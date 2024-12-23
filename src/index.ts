@@ -12,7 +12,6 @@ app.use(express.json());
 
 const telegramNotifier = new TelegramNotifier();
 
-// Webhook endpoint for new grants
 app.post("/webhook/grant", validateWebhookSecret, async (req, res) => {
   try {
     const grantData = grantSchema.parse(req.body);
@@ -24,7 +23,6 @@ app.post("/webhook/grant", validateWebhookSecret, async (req, res) => {
   }
 });
 
-// Webhook endpoint for new stages
 app.post("/webhook/stage", validateWebhookSecret, async (req, res) => {
   try {
     const stageData = webhookSchema.parse(req.body);

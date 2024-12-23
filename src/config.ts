@@ -10,4 +10,7 @@ export const config = {
     port: process.env.PORT || 8080,
     webhookSecret: process.env.WEBHOOK_SECRET || "",
   },
+  app: {
+    baseUrl: process.env.APP_BASE_URL || "http://localhost:3000",
+  },
 } as const;
