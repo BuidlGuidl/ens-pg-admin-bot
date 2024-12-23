@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const grantSchema = z.object({
+  id: z.number(),
   title: z.string().trim(),
   description: z.string().trim(),
   milestones: z.string().trim(),

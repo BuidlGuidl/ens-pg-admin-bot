@@ -52,12 +52,18 @@ export class TelegramNotifier {
     return `https://etherscan.io/address/${address}`;
   }
 
+  private makeGrantUrl(grantId: number): string {
+    return `${config.app.baseUrl}/grants/${grantId}`;
+  }
+
   private formatTelegramHandle(handle: string): string {
     return handle.replace(/^@+/, "").trim();
   }
 
   private formatSocialLinks(grant: Grant | WebhookData["grant"]): string {
-    let links = `• <a href="${this.makeGithubUrl(grant.github)}">GitHub</a>`;
+    let links = `• <a href="${this.makeGrantUrl(grant.id)}">View Grant</a>`;
+
+    links += `\n• <a href="${this.makeGithubUrl(grant.github)}">GitHub</a>`;
 
     if (grant.twitter) {
       links += `\n• <a href="${this.makeTwitterUrl(grant.twitter)}">Twitter</a>`;
