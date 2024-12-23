@@ -72,7 +72,7 @@ X-Webhook-Secret: your_secret_here
 
 Body example:
 
-````json
+```json
 {
   "id": 1,
   "stageNumber": 1,
@@ -86,4 +86,3 @@ Body example:
   }
 }
 ```
-````
