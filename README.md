@@ -8,7 +8,7 @@ A Telegram bot that sends notifications when new grants are created or new stage
 
    - Get a Telegram bot token from [@BotFather](https://t.me/botfather)
    - Create a channel and add the bot as an admin
-   - Get your channel ID (you can use [@username_to_id_bot](https://t.me/username_to_id_bot))
+   - Get your channel ID (checkout this [instructions](https://github.com/GabrielRF/telegram-id?tab=readme-ov-file#app-group-id))
    - Set a secure webhook secret
    - Choose your port (default: 8080)
 
@@ -29,6 +29,12 @@ For development:
 
 ```bash
 yarn dev
+```
+
+4. Use [ngrok](https://ngrok.com/docs/getting-started/) to expose your local server to the internet:
+
+```bash
+ngrok http http://localhost:8080
 ```
 
 ## API Endpoints
