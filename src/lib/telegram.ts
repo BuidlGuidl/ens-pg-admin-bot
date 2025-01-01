@@ -14,7 +14,7 @@ export class TelegramNotifier {
 
   private setupBot() {
     this.bot.command("start", ctx => {
-      const message = `👋 <b>Welcome to ENS PG Bot!</b>
+      const message = `👋 <b>Welcome to ENS PG Admin Bot!</b>
 🔔 I notify the community about:
 • New grant applications
 • New stage submissions
