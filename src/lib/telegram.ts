@@ -110,7 +110,7 @@ ${this.formatSocialLinks(grant)}`;
 <b>Stage Number:</b> ${data.grant.stages.length + 1}
 <b>Builder:</b> <a href="${this.makeEtherscanUrl(data.grant.builderAddress)}">${data.grant.builderAddress}</a>
 
-<b>Milestone:</b>
+<b>Planned milestones:</b>
 ${this.escapeHtml(truncatedMilestone)}
 
 <b>Links:</b>
