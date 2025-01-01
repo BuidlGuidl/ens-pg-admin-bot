@@ -37,9 +37,20 @@ export class TelegramNotifier {
   }
 
   private makeGithubUrl(github: string): string {
-    if (github.startsWith("http")) return github;
+    if (!github) return "";
+
+    // Remove any leading @ symbols and trim whitespace
     const cleanHandle = github.replace(/^@+/, "").trim();
-    return `https://github.com/${cleanHandle}`;
+
+    // If it's already a full URL, return it
+    if (cleanHandle.startsWith("http")) {
+      return cleanHandle;
+    }
+
+    // Remove 'github.com/' if it's at the start of the string
+    const username = cleanHandle.replace(/^github\.com\//, "");
+
+    return `https://github.com/${username}`;
   }
 
   private makeTwitterUrl(twitter: string): string {
