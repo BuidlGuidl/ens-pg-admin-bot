@@ -122,9 +122,34 @@ export const completeLargeMilestoneSchema = z.object({
   }),
 });
 
+export const completeMilestoneSchema = z.object({
+  milestone: z.object({
+    description: z.string(),
+    proposedDeliverables: z.string(),
+    grantedAmount: z.string(),
+    completionProof: z.string(),
+    stage: z.object({
+      stageNumber: z.number(),
+      grant: z.object({
+        id: z.number(),
+        title: z.string(),
+        description: z.string(),
+        showcaseVideoUrl: z.string().optional(),
+        github: z.string(),
+        email: z.string(),
+        twitter: z.string().optional(),
+        telegram: z.string().optional(),
+        submitedAt: z.string(),
+        builderAddress: z.string(),
+      }),
+    }),
+  }),
+});
+
 export type Grant = z.infer<typeof grantSchema>;
 export type Stage = z.infer<typeof stageSchema>;
 export type WebhookData = z.infer<typeof webhookSchema>;
 export type LargeGrant = z.infer<typeof largeGrantSchema>;
 export type LargeStage = z.infer<typeof largeStageSchema>;
 export type CompleteLargeMilestone = z.infer<typeof completeLargeMilestoneSchema>;
+export type CompleteMilestone = z.infer<typeof completeMilestoneSchema>;

@@ -11,6 +11,7 @@ import {
   largeGrantSchema,
   largeStageSchema,
   completeLargeMilestoneSchema,
+  completeMilestoneSchema,
 } from "./types/webhook";
 
 const app = express();
@@ -37,6 +38,17 @@ app.post("/webhook/stage", validateWebhookSecret, async (req, res) => {
   } catch (error) {
     console.error("Error processing stage webhook:", error);
     res.status(400).json({ error: "Invalid stage data" });
+  }
+});
+
+app.post("/webhook/milestone", validateWebhookSecret, async (req, res) => {
+  try {
+    const milestoneData = completeMilestoneSchema.parse(req.body);
+    await telegramNotifier.notifyCompleteMilestone(milestoneData);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error processing milestone webhook:", error);
+    res.status(400).json({ error: "Invalid milestone data" });
   }
 });
 
