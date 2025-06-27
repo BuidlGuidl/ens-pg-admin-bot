@@ -1,6 +1,14 @@
 import { Telegraf } from "telegraf";
 import { config } from "../config";
-import { Grant, WebhookData, LargeGrant, LargeStage, CompleteLargeMilestone } from "../types/webhook";
+import {
+  Grant,
+  WebhookData,
+  LargeGrant,
+  LargeStage,
+  CompleteLargeMilestone,
+  CompleteMilestone,
+} from "../types/webhook";
+import { formatEther } from "../utils/formatEther"; // avoid to install viem just for this utility
 
 export class TelegramNotifier {
   private bot: Telegraf;
@@ -148,6 +156,30 @@ ${this.formatGrantSocialLinks(grant)}`;
 
 <b>Links:</b>
 ${this.formatGrantSocialLinks(data.grant)}`;
+
+    await this.bot.telegram.sendMessage(config.telegram.channelId, message, {
+      link_preview_options: {
+        is_disabled: true,
+      },
+      parse_mode: "HTML",
+    });
+  }
+
+  async notifyCompleteMilestone(data: CompleteMilestone) {
+    const milestone = data.milestone;
+    console.log("Milestone data:", milestone);
+    const message = `📝 <b>New ETH Milestone Completed!</b>
+
+<b>Grant:</b> ${this.escapeHtml(milestone.stage.grant.title)}
+<b>Stage Number:</b> ${milestone.stage.stageNumber}
+<b>Milestone:</b> ${this.escapeHtml(milestone.description)}
+<b>Proposed Deliverables:</b> ${this.escapeHtml(milestone.proposedDeliverables)}
+<b>Completion Proof:</b> ${milestone.completionProof}
+<b>Amount:</b> ${formatEther(BigInt(milestone.grantedAmount))} ETH
+<b>Builder:</b> <a href="${this.makeEtherscanUrl(milestone.stage.grant.builderAddress)}">${milestone.stage.grant.builderAddress}</a>
+
+<b>Links:</b>
+${this.formatLargeGrantSocialLinks(milestone.stage.grant)}`;
 
     await this.bot.telegram.sendMessage(config.telegram.channelId, message, {
       link_preview_options: {
