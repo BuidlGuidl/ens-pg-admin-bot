@@ -13,7 +13,6 @@ import { formatEther } from "../utils/formatEther"; // avoid to install viem jus
 export class TelegramNotifier {
   private bot: Telegraf;
   private readonly DESCRIPTION_MAX_LENGTH = 150;
-  private readonly MILESTONE_MAX_LENGTH = 150;
 
   constructor() {
     this.bot = new Telegraf(config.telegram.botToken);
@@ -129,7 +128,7 @@ export class TelegramNotifier {
     const message = `🎉 <b>New ETH Grant Application!</b>
 
 <b>Title:</b> ${this.escapeHtml(grant.title)}
-<b>Requested:</b> ${grant.requestedFunds} ETH
+<b>Requested:</b> ${formatEther(BigInt(grant.requestedFunds))} ETH
 <b>Builder:</b> <a href="${this.makeEtherscanUrl(grant.builderAddress)}">${grant.builderAddress}</a>
 
 <b>Description:</b>
@@ -147,7 +146,6 @@ ${this.formatGrantSocialLinks(grant)}`;
   }
 
   async notifyNewStage(data: WebhookData) {
-    const truncatedMilestone = this.truncateText(data.newStage.milestone, this.MILESTONE_MAX_LENGTH);
     const message = `📝 <b>New ETH Stage Submitted!</b>
 
 <b>Grant:</b> ${this.escapeHtml(data.grant.title)}
@@ -167,7 +165,6 @@ ${this.formatGrantSocialLinks(data.grant)}`;
 
   async notifyCompleteMilestone(data: CompleteMilestone) {
     const milestone = data.milestone;
-    console.log("Milestone data:", milestone);
     const message = `📝 <b>New ETH Milestone Completed!</b>
 
 <b>Grant:</b> ${this.escapeHtml(milestone.stage.grant.title)}
