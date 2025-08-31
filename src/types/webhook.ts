@@ -4,7 +4,6 @@ export const grantSchema = z.object({
   id: z.number(),
   title: z.string().trim(),
   description: z.string().trim(),
-  milestones: z.string().trim(),
   showcaseVideoUrl: z.string(),
   requestedFunds: z.string(),
   github: z.string(),
@@ -17,7 +16,6 @@ export const grantSchema = z.object({
 const stageSchema = z.object({
   id: z.number(),
   stageNumber: z.number(),
-  milestone: z.string().nullable(),
   submitedAt: z.string(),
   grantId: z.number(),
   grantAmount: z.string().optional(),
@@ -38,7 +36,6 @@ export const webhookSchema = z.object({
     grantNumber: z.number(),
     title: z.string(),
     description: z.string(),
-    milestones: z.string(),
     showcaseVideoUrl: z.string().optional(),
     requestedFunds: z.string(),
     github: z.string(),
